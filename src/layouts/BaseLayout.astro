@@ -1,0 +1,36 @@
+---
+interface Props {
+  lang: 'en' | 'ar';
+  title: string;
+  description: string;
+}
+const { lang, title, description } = Astro.props;
+const dir = lang === 'ar' ? 'rtl' : 'ltr';
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang={lang} dir={dir}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

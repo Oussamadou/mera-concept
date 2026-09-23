@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+---
+<BaseLayout
+  lang="en"
+  title="Mera — hydraulic components, machined for export"
+  description="Mera machines hydraulic cylinders, valves and couplings for equipment builders across the Gulf. A drawing in, a tested part out."
+>
+  <Header lang="en" />
+
+  <main>
+    <section class="hero container">
+      <p class="hero__eyebrow">Hydraulic components, Turkey to the Gulf</p>
+      <h1>Parts that hold the tolerance, in a language your buyer actually reads.</h1>
+      <p class="hero__sub">
+        Mera machines hydraulic cylinders, valves and couplings for equipment builders across
+        the Gulf. One drawing in, one tested part out — on a site that reads as Arabic to an
+        Arabic buyer, not as a translation of an English one.
+      </p>
+      <div class="hero__actions">
+        <a class="button button--primary" href="#contact">Send a drawing</a>
+        <a class="button button--ghost" href="#capabilities">See the floor</a>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="section__head">
+        <div>
+          <p class="section__kicker">The shop</p>
+          <h2>A machining floor, not a sales office.</h2>
+        </div>
+      </div>
+      <p class="section__lead">
+        Mera runs CNC turning and milling for hydraulic components — cylinders, valves,
+        couplings and the fittings between them. Drawings come in as a print or a DWG; parts go
+        out packed for a container, not a shelf down the road.
+      </p>
+    </section>
+
+    <section id="capabilities" class="section container">
+      <div class="section__head">
+        <div>
+          <p class="section__kicker">Capabilities</p>
+          <h2>What happens to a drawing once it's yours.</h2>
+        </div>
+      </div>
+      <div class="grid grid--4">
+        <div class="card">
+          <p class="card__index">01</p>
+          <h3>CNC turning &amp; milling</h3>
+          <p>Bar stock and billet, cut to print on multi-axis equipment — one-off and repeat runs on the same floor.</p>
+        </div>
+        <div class="card">
+          <p class="card__index">02</p>
+          <h3>Assembly</h3>
+          <p>Cylinders and valve bodies built and seated in-house, not subcontracted out and reassembled on faith.</p>
+        </div>
+        <div class="card">
+          <p class="card__index">03</p>
+          <h3>Pressure testing</h3>
+          <p>Every hydraulic assembly is tested before it is packed, not sampled after a batch ships.</p>
+        </div>
+        <div class="card">
+          <p class="card__index">04</p>
+          <h3>Export packing</h3>
+          <p>Crated for sea freight to a Gulf port, not adapted after the fact from a domestic pallet run.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="range" class="section container">
+      <div class="section__head">
+        <div>
+          <p class="section__kicker">Range</p>
+          <h2>Four families, one floor.</h2>
+        </div>
+      </div>
+      <ul class="range-list">
+        <li class="range-list__row">
+          <span class="range-list__name">Cylinders</span>
+          <span class="range-list__desc">Single and double-acting, built to a customer's drawing rather than a fixed catalog size.</span>
+        </li>
+        <li class="range-list__row">
+          <span class="range-list__name">Valves</span>
+          <span class="range-list__desc">Directional and pressure-control valve bodies, machined and seated in-house.</span>
+        </li>
+        <li class="range-list__row">
+          <span class="range-list__name">Couplings</span>
+          <span class="range-list__desc">Quick-release and threaded couplings for hydraulic lines under pressure.</span>
+        </li>
+        <li class="range-list__row">
+          <span class="range-list__name">Seals &amp; fittings</span>
+          <span class="range-list__desc">The parts between the parts — supplied to match, not left for the buyer to source separately.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="export" class="section container">
+      <div class="section__head">
+        <div>
+          <p class="section__kicker">Export</p>
+          <h2>Built for a buyer reading Arabic, not translated for one.</h2>
+        </div>
+      </div>
+      <ul class="export-points">
+        <li>
+          <strong>One point of contact, in English and Arabic</strong>
+          <span>A drawing sent in Arabic gets read in Arabic, not routed through a translator first.</span>
+        </li>
+        <li>
+          <strong>Quoted per drawing</strong>
+          <span>No catalog price list. Every quote is scoped to the drawing and the run size.</span>
+        </li>
+        <li>
+          <strong>Packed for the voyage</strong>
+          <span>Crated and documented for sea freight to a Gulf port from the first run, not adapted after.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="contact" class="section contact">
+      <div class="container">
+        <p class="section__kicker">Contact</p>
+        <h2>Send the drawing.</h2>
+        <p class="section__lead">
+          A print, a DWG, or a part to reverse-measure — that is enough to start a quote.
+        </p>
+        <div class="contact-card">
+          <span>hello@mera.works</span>
+          <p class="contact-card__note">Quotes are scoped per drawing. No catalog pricing.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Mera — a concept project, Sefer Studio's own brief.</span>
+      <span><a href="https://seferstudio.com">Built by Sefer Studio</a></span>
+    </div>
+  </footer>
+</BaseLayout>

@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+
+/**
+ * PENDING: every string below is a placeholder, not Arabic copy. D19 (no
+ * machine-translated Arabic, ever) applies to this site the same way it
+ * applies to Sefer Studio's own — Mera ships as a portfolio proof of a real
+ * bilingual build, so broken or generated Arabic here is the same
+ * disqualifying flaw. Real strings come from Sam, file-to-file, replacing
+ * every `ph()` call below. Do not delete the `lang="en"` marker on a
+ * placeholder — it is what stops a placeholder being read as Arabic.
+ */
+const ph = (en: string) => en;
+---
+<BaseLayout
+  lang="ar"
+  title="[PENDING ARABIC] Mera"
+  description="[PENDING ARABIC]"
+>
+  <Header lang="ar" />
+
+  <main>
+    <section class="hero container pending">
+      <p class="hero__eyebrow" lang="en">{ph('[pending] Hydraulic components, Turkey to the Gulf')}</p>
+      <h1 lang="en">{ph("[pending] Parts that hold the tolerance, in the language your buyer reads.")}</h1>
+      <p class="hero__sub" lang="en">
+        {ph('[pending] Full Arabic hero copy from Sam — see EN /index.astro for the matching content.')}
+      </p>
+      <div class="hero__actions">
+        <a class="button button--primary" href="#contact" lang="en">{ph('[pending] Send a drawing')}</a>
+        <a class="button button--ghost" href="#capabilities" lang="en">{ph('[pending] See the floor')}</a>
+      </div>
+    </section>
+
+    <section class="section container pending">
+      <div class="section__head">
+        <div>
+          <p class="section__kicker" lang="en">{ph('[pending] The shop')}</p>
+          <h2 lang="en">{ph('[pending] A machining floor, not a sales office.')}</h2>
+        </div>
+      </div>
+      <p class="section__lead" lang="en">{ph('[pending] Matches EN "who we are" paragraph.')}</p>
+    </section>
+
+    <section id="capabilities" class="section container pending">
+      <div class="section__head">
+        <div>
+          <p class="section__kicker" lang="en">{ph('[pending] Capabilities')}</p>
+          <h2 lang="en">{ph("[pending] What happens to a drawing once it's yours.")}</h2>
+        </div>
+      </div>
+      <div class="grid grid--4">
+        <div class="card">
+          <p class="card__index">01</p>
+          <h3 lang="en">{ph('[pending] CNC turning & milling')}</h3>
+          <p lang="en">{ph('[pending] matches EN card 1')}</p>
+        </div>
+        <div class="card">
+          <p class="card__index">02</p>
+          <h3 lang="en">{ph('[pending] Assembly')}</h3>
+          <p lang="en">{ph('[pending] matches EN card 2')}</p>
+        </div>
+        <div class="card">
+          <p class="card__index">03</p>
+          <h3 lang="en">{ph('[pending] Pressure testing')}</h3>
+          <p lang="en">{ph('[pending] matches EN card 3')}</p>
+        </div>
+        <div class="card">
+          <p class="card__index">04</p>
+          <h3 lang="en">{ph('[pending] Export packing')}</h3>
+          <p lang="en">{ph('[pending] matches EN card 4')}</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="range" class="section container pending">
+      <div class="section__head">
+        <div>
+          <p class="section__kicker" lang="en">{ph('[pending] Range')}</p>
+          <h2 lang="en">{ph('[pending] Four families, one floor.')}</h2>
+        </div>
+      </div>
+      <ul class="range-list">
+        <li class="range-list__row">
+          <span class="range-list__name" lang="en">{ph('[pending] Cylinders')}</span>
+          <span class="range-list__desc" lang="en">{ph('[pending] matches EN row 1')}</span>
+        </li>
+        <li class="range-list__row">
+          <span class="range-list__name" lang="en">{ph('[pending] Valves')}</span>
+          <span class="range-list__desc" lang="en">{ph('[pending] matches EN row 2')}</span>
+        </li>
+        <li class="range-list__row">
+          <span class="range-list__name" lang="en">{ph('[pending] Couplings')}</span>
+          <span class="range-list__desc" lang="en">{ph('[pending] matches EN row 3')}</span>
+        </li>
+        <li class="range-list__row">
+          <span class="range-list__name" lang="en">{ph('[pending] Seals & fittings')}</span>
+          <span class="range-list__desc" lang="en">{ph('[pending] matches EN row 4')}</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="export" class="section container pending">
+      <div class="section__head">
+        <div>
+          <p class="section__kicker" lang="en">{ph('[pending] Export')}</p>
+          <h2 lang="en">{ph('[pending] Built for a buyer reading Arabic, not translated for one.')}</h2>
+        </div>
+      </div>
+      <ul class="export-points">
+        <li>
+          <strong lang="en">{ph('[pending] One point of contact, in English and Arabic')}</strong>
+          <span lang="en">{ph('[pending] matches EN point 1')}</span>
+        </li>
+        <li>
+          <strong lang="en">{ph('[pending] Quoted per drawing')}</strong>
+          <span lang="en">{ph('[pending] matches EN point 2')}</span>
+        </li>
+        <li>
+          <strong lang="en">{ph('[pending] Packed for the voyage')}</strong>
+          <span lang="en">{ph('[pending] matches EN point 3')}</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="contact" class="section contact pending">
+      <div class="container">
+        <p class="section__kicker" lang="en">{ph('[pending] Contact')}</p>
+        <h2 lang="en">{ph('[pending] Send the drawing.')}</h2>
+        <p class="section__lead" lang="en">{ph('[pending] matches EN contact lead')}</p>
+        <div class="contact-card">
+          <span>hello@mera.works</span>
+          <p class="contact-card__note" lang="en">{ph('[pending] matches EN contact note')}</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span lang="en">Mera — a concept project, Sefer Studio's own brief.</span>
+      <span><a href="https://seferstudio.com">Built by Sefer Studio</a></span>
+    </div>
+  </footer>
+</BaseLayout>

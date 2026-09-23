@@ -1,0 +1,39 @@
+---
+interface Props {
+  lang: 'en' | 'ar';
+}
+const { lang } = Astro.props;
+
+const nav = {
+  en: [
+    { href: '#capabilities', label: 'Capabilities' },
+    { href: '#range', label: 'Range' },
+    { href: '#export', label: 'Export' },
+    { href: '#contact', label: 'Contact' },
+  ],
+  // PENDING: real Arabic nav labels come from Sam, file-to-file (see
+  // src/pages/ar/index.astro's header comment) — never authored here.
+  ar: [
+    { href: '#capabilities', label: '[pending] Capabilities' },
+    { href: '#range', label: '[pending] Range' },
+    { href: '#export', label: '[pending] Export' },
+    { href: '#contact', label: '[pending] Contact' },
+  ],
+};
+---
+<header class="site-header">
+  <div class="container site-header__row">
+    <a class="site-header__mark" href={lang === 'ar' ? '/ar/' : '/'}>
+      Mera<span>.</span>
+    </a>
+    <ul class="site-header__nav">
+      {nav[lang].map((item) => (
+        <li><a href={item.href} lang={lang === 'ar' ? 'en' : undefined}>{item.label}</a></li>
+      ))}
+    </ul>
+    <nav class="site-header__lang" aria-label="Language">
+      <a href="/" aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
+      <a href="/ar/" aria-current={lang === 'ar' ? 'page' : undefined}>AR</a>
+    </nav>
+  </div>
+</header>
