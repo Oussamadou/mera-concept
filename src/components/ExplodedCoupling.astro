@@ -1,0 +1,246 @@
+---
+/**
+ * work-artefacts-plan.md §6.1, supporting item 1: a hydraulic coupling comes
+ * apart along its axis as the reader scrolls. Geometry only, drawn by the
+ * studio — no spec figures, no invented tolerances (D5). Pure SVG, no i18n
+ * strings, so this one component is imported unchanged by both index.astro
+ * and ar/index.astro.
+ *
+ * Mechanism: `.exploded__scroll` is a tall (220dvh) wrapper carrying
+ * `view-timeline-name: --explode`; `.exploded__pin` is `position: sticky`
+ * inside it, so the illustration holds centre-viewport while its ancestor
+ * scrolls past. Every part reads the SAME named timeline (never a bare
+ * `view()` each — that desyncs siblings, the exact bug this project's own
+ * Process.astro hit once) with its own `animation-range` to stagger the
+ * explosion. Guarded by `@supports (animation-timeline: view())`; the
+ * fallback outside the guard is the fully-exploded resting state, since a
+ * static exploded diagram still reads as an exploded diagram.
+ *
+ * Supporting item 2 rides the same element: a pointer-tracked specular
+ * highlight (radial gradient positioned from one damped pointermove
+ * listener) so the metal parts read as metal, not flat vector fills.
+ */
+---
+<section class="exploded" aria-hidden="true">
+  <div class="exploded__scroll">
+    <div class="exploded__pin">
+      <svg
+        class="exploded__art"
+        viewBox="0 0 1000 300"
+        role="img"
+        aria-label=""
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#5c6675" />
+            <stop offset="0.5" stop-color="#3b4552" />
+            <stop offset="1" stop-color="#262d36" />
+          </linearGradient>
+          <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e7c07f" />
+            <stop offset="0.5" stop-color="#b8874a" />
+            <stop offset="1" stop-color="#8a6432" />
+          </linearGradient>
+        </defs>
+
+        <!-- callout rules, drawn in from the baseline as parts separate -->
+        <g class="callouts" stroke="#b8874a" stroke-width="1" fill="none">
+          <path class="callout callout-1" d="M130 260 V 175" pathLength="1" />
+          <path class="callout callout-2" d="M300 260 V 190" pathLength="1" />
+          <path class="callout callout-3" d="M400 260 V 195" pathLength="1" />
+          <path class="callout callout-4" d="M600 260 V 210" pathLength="1" />
+        </g>
+
+        <!-- part 1: tube stub -->
+        <g class="part part-1">
+          <rect x="40" y="130" width="180" height="40" rx="6" fill="url(#steel)" stroke="#14181c" stroke-width="1.5" />
+          <line x1="60" y1="130" x2="60" y2="170" stroke="#14181c" stroke-opacity="0.35" />
+          <line x1="90" y1="130" x2="90" y2="170" stroke="#14181c" stroke-opacity="0.35" />
+          <line x1="120" y1="130" x2="120" y2="170" stroke="#14181c" stroke-opacity="0.35" />
+        </g>
+
+        <!-- part 2: ferrule -->
+        <g class="part part-2">
+          <path d="M260 138 L 340 122 L 340 178 L 260 162 Z" fill="url(#brass)" stroke="#14181c" stroke-width="1.5" />
+        </g>
+
+        <!-- part 3: o-ring, cross-section -->
+        <g class="part part-3">
+          <ellipse cx="378" cy="150" rx="16" ry="46" fill="none" stroke="#14181c" stroke-width="10" />
+          <ellipse cx="378" cy="150" rx="16" ry="46" fill="none" stroke="#0e0f11" stroke-width="3" />
+        </g>
+
+        <!-- part 4: body -->
+        <g class="part part-4">
+          <rect x="430" y="90" width="330" height="120" rx="18" fill="url(#steel)" stroke="#14181c" stroke-width="1.5" />
+          <rect x="430" y="90" width="60" height="120" rx="12" fill="#262d36" stroke="#14181c" stroke-width="1.5" />
+          <circle cx="700" cy="120" r="10" fill="#14181c" fill-opacity="0.4" />
+          <circle cx="700" cy="180" r="10" fill="#14181c" fill-opacity="0.4" />
+          <path d="M760 90 L 830 100 L 830 200 L 760 210 Z" fill="url(#brass)" stroke="#14181c" stroke-width="1.5" />
+        </g>
+
+        <!-- specular sheen, positioned by the pointer listener below -->
+        <circle
+          class="sheen"
+          r="70"
+          fill="url(#steel)"
+          style="mix-blend-mode: screen; opacity: 0.28;"
+        />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .exploded {
+    border-block-end: 1px solid var(--color-line);
+  }
+
+  .exploded__scroll {
+    /* Scroll distance the explosion plays out over. */
+    block-size: 100dvh;
+  }
+
+  .exploded__pin {
+    position: sticky;
+    inset-block-start: 0;
+    block-size: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: clip;
+    background: var(--color-paper-dim);
+  }
+
+  .exploded__art {
+    inline-size: min(90vw, 900px);
+    block-size: auto;
+    overflow: visible;
+  }
+
+  .part,
+  .callout {
+    translate: 0 0;
+  }
+
+  .callout {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+
+  .sheen {
+    pointer-events: none;
+    /* Default, no-JS position: a quiet fixed gleam on the body. */
+    cx: 620;
+    cy: 130;
+  }
+
+  /* Fallback (no view() support, or JS/animation disabled): the fully
+     exploded resting state, drawn directly rather than left assembled. */
+  .part-1 { translate: -140px 0; }
+  .part-2 { translate: -60px 0; }
+  .part-3 { translate: 0 0; }
+  .part-4 { translate: 60px 0; }
+  .callout { stroke-dashoffset: 0; }
+
+  @supports (animation-timeline: view()) {
+    .exploded__scroll {
+      view-timeline-name: --explode;
+      view-timeline-axis: block;
+    }
+
+    .part-1 {
+      translate: 0 0;
+      animation-name: explode-1;
+      animation-duration: 1ms; /* overridden by animation-timeline */
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --explode;
+      animation-range: entry 0% cover 55%;
+    }
+    .part-2 {
+      translate: 0 0;
+      animation-name: explode-2;
+      animation-duration: 1ms;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --explode;
+      animation-range: entry 10% cover 60%;
+    }
+    .part-3 {
+      translate: 0 0;
+      animation-name: none;
+      animation-duration: 1ms;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --explode;
+      animation-range: entry 10% cover 60%;
+    }
+    .part-4 {
+      translate: 0 0;
+      animation-name: explode-4;
+      animation-duration: 1ms;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --explode;
+      animation-range: entry 15% cover 65%;
+    }
+    .callout-1 { animation-name: draw; animation-duration: 1ms; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --explode; animation-range: entry 5% cover 45%; }
+    .callout-2 { animation-name: draw; animation-duration: 1ms; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --explode; animation-range: entry 15% cover 50%; }
+    .callout-3 { animation-name: draw; animation-duration: 1ms; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --explode; animation-range: entry 15% cover 50%; }
+    .callout-4 { animation-name: draw; animation-duration: 1ms; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --explode; animation-range: entry 20% cover 55%; }
+  }
+
+  @keyframes explode-1 { from { translate: 0 0; } to { translate: -140px 0; } }
+  @keyframes explode-2 { from { translate: 0 0; } to { translate: -60px 0; } }
+  @keyframes explode-4 { from { translate: 0 0; } to { translate: 60px 0; } }
+  @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .part-1, .part-2, .part-3, .part-4 { animation: none !important; }
+    .callout-1, .callout-2, .callout-3, .callout-4 { animation: none !important; }
+    .part-1 { translate: -140px 0; }
+    .part-2 { translate: -60px 0; }
+    .part-4 { translate: 60px 0; }
+    .callout { stroke-dashoffset: 0; }
+    .exploded__scroll { block-size: auto; }
+    .exploded__pin { position: static; block-size: 70vh; }
+  }
+</style>
+
+<script>
+  // Pointer-tracked specular highlight, damped. One listener, plain DOM,
+  // no framework. Skips entirely for touch-only input (no hover to track).
+  if (window.matchMedia('(hover: hover)').matches) {
+    const art = document.querySelector<SVGSVGElement>('.exploded__art');
+    const sheen = document.querySelector<SVGCircleElement>('.sheen');
+    if (art && sheen) {
+      let targetX = 620;
+      let targetY = 130;
+      let x = targetX;
+      let y = targetY;
+      let raf = 0;
+
+      const tick = () => {
+        x += (targetX - x) * 0.12;
+        y += (targetY - y) * 0.12;
+        sheen.setAttribute('cx', String(x));
+        sheen.setAttribute('cy', String(y));
+        if (Math.abs(targetX - x) > 0.5 || Math.abs(targetY - y) > 0.5) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = 0;
+        }
+      };
+
+      art.addEventListener('pointermove', (event) => {
+        const rect = art.getBoundingClientRect();
+        const vb = art.viewBox.baseVal;
+        targetX = ((event.clientX - rect.left) / rect.width) * vb.width;
+        targetY = ((event.clientY - rect.top) / rect.height) * vb.height;
+        if (!raf) raf = requestAnimationFrame(tick);
+      });
+    }
+  }
+</script>
