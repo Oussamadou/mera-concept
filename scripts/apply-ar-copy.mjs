@@ -132,15 +132,28 @@ for (const rel of SOURCES) {
     return line.replace(PH, `'${esc(value)}'`).replace(/\s+lang="en"/, '');
   });
 
+  // An opening tag on its own line keeps `lang="en"` when its placeholder sat on
+  // the next line — the replace above only touches the placeholder's line. Drop
+  // it wherever the element's content is now Arabic.
+  const ARABIC = /[؀-ۿ]/;
+  for (let i = 0; i < out.length - 1; i += 1) {
+    if (/lang="en"/.test(out[i]) && /<[a-zA-Z][^>]*>\s*$/.test(out[i]) && ARABIC.test(out[i + 1])) {
+      out[i] = out[i].replace(/\s+lang="en"/, '');
+    }
+  }
+
   let text = out.join(eol);
 
   // The marker is the only thing standing between draft Arabic and a deploy
-  // that silently disproves this site's whole argument. It goes in as an HTML
-  // comment at the top of the file — visible in source, greppable, and removed
-  // the moment _STATUS flips to APPROVED.
-  const MARK = '<!-- AR COPY STATUS: DRAFT — machine-written, not approved, must not deploy. See docs/ar-copy.json _STATUS_NOTE. -->';
-  text = text.replace(new RegExp(`^\\s*<!-- AR COPY STATUS[^>]*-->\\r?\\n`, 'm'), '');
-  if (isDraft && rel.endsWith('ar/index.astro')) text = `${MARK}${eol}${text}`;
+  // that silently disproves this site's whole argument. It lives INSIDE the
+  // frontmatter as a JS comment: greppable, zero bytes shipped. It used to be
+  // an HTML comment above the `---` fence, which put an internal note into
+  // every visitor's page source and relied on the compiler tolerating content
+  // before the frontmatter. check-copy-status.mjs is what blocks the deploy.
+  const MARK = '// AR COPY STATUS: DRAFT — machine-written, not approved, must not deploy. See docs/ar-copy.json _STATUS_NOTE.';
+  text = text.replace(/^\s*<!-- AR COPY STATUS[^>]*-->\r?\n/m, '');
+  text = text.replace(/^\/\/ AR COPY STATUS[^\r\n]*\r?\n/m, '');
+  if (isDraft && rel.endsWith('ar/index.astro')) text = text.replace(/^---\r?\n/, `---${eol}${MARK}${eol}`);
 
   if (!dry) writeFileSync(path, text);
 }

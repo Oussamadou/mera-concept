@@ -1,17 +1,16 @@
-<!-- AR COPY STATUS: DRAFT — machine-written, not approved, must not deploy. See docs/ar-copy.json _STATUS_NOTE. -->
 ---
+// AR COPY STATUS: DRAFT — machine-written, not approved, must not deploy. See docs/ar-copy.json _STATUS_NOTE.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import ExplodedCoupling from '../../components/ExplodedCoupling.astro';
 
 /**
- * PENDING: every string below is a placeholder, not Arabic copy. D19 (no
- * machine-translated Arabic, ever) applies to this site the same way it
- * applies to Sefer Studio's own — Mera ships as a portfolio proof of a real
- * bilingual build, so broken or generated Arabic here is the same
- * disqualifying flaw. Real strings come from Sam, file-to-file, replacing
- * every `ph()` call below. Do not delete the `lang="en"` marker on a
- * placeholder — it is what stops a placeholder being read as Arabic.
+ * DRAFT: the Arabic below is a machine-written draft Sam asked for, applied
+ * from docs/ar-copy.json by scripts/apply-ar-copy.mjs. It is not approved and
+ * must not deploy — D19 applies here exactly as on Sefer Studio's own site,
+ * and scripts/check-copy-status.mjs fails until a person has written the real
+ * copy and _STATUS reads APPROVED. Edit the JSON, never this file, and re-run
+ * the script: Arabic moves file to file, never through a terminal.
  *
  * `transition:name` values below MUST stay identical to their counterpart in
  * ../index.astro — that pairing is what makes the language-switch transition
