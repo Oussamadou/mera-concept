@@ -1,0 +1,165 @@
+{
+  "_README": "Arabic for mera-concept. Fill every \"ar\" value. Written by a person — see docs/translation-worksheet.md. Keys must not change.",
+  "strings": {
+    "hero-eyebrow": {
+      "en": "Hydraulic components, Turkey to the Gulf",
+      "ar": ""
+    },
+    "hero-heading": {
+      "en": "Parts that hold the tolerance, in the language your buyer reads.",
+      "ar": ""
+    },
+    "hero-sub-span-1": {
+      "en": "Full Arabic hero copy from Sam — see EN /index.astro for the matching content.",
+      "ar": ""
+    },
+    "hero-cta-primary": {
+      "en": "Send a drawing",
+      "ar": ""
+    },
+    "hero-cta-ghost": {
+      "en": "See the floor",
+      "ar": ""
+    },
+    "kicker-shop": {
+      "en": "The shop",
+      "ar": ""
+    },
+    "heading-shop": {
+      "en": "A machining floor, not a sales office.",
+      "ar": ""
+    },
+    "lead-shop": {
+      "en": "Matches EN \"who we are\" paragraph.",
+      "ar": ""
+    },
+    "kicker-capabilities": {
+      "en": "Capabilities",
+      "ar": ""
+    },
+    "heading-capabilities": {
+      "en": "What happens to a drawing once it's yours.",
+      "ar": ""
+    },
+    "card-1-h3-2": {
+      "en": "CNC turning & milling",
+      "ar": ""
+    },
+    "card-1-p-3": {
+      "en": "Bar stock and billet, cut to print on multi-axis equipment — one-off and repeat runs on the same floor.",
+      "ar": ""
+    },
+    "card-2-h3-2": {
+      "en": "Assembly",
+      "ar": ""
+    },
+    "card-2-p-3": {
+      "en": "Cylinders and valve bodies built and seated in-house, not subcontracted out and reassembled on faith.",
+      "ar": ""
+    },
+    "card-3-h3-2": {
+      "en": "Pressure testing",
+      "ar": ""
+    },
+    "card-3-p-3": {
+      "en": "Every hydraulic assembly is tested before it is packed, not sampled after a batch ships.",
+      "ar": ""
+    },
+    "card-4-h3-2": {
+      "en": "Export packing",
+      "ar": ""
+    },
+    "card-4-p-3": {
+      "en": "Crated for sea freight to a Gulf port, not adapted after the fact from a domestic pallet run.",
+      "ar": ""
+    },
+    "kicker-range": {
+      "en": "Range",
+      "ar": ""
+    },
+    "heading-range": {
+      "en": "Four families, one floor.",
+      "ar": ""
+    },
+    "range-row-1-span-1": {
+      "en": "Cylinders",
+      "ar": ""
+    },
+    "range-row-1-span-2": {
+      "en": "Single and double-acting, built to a customer's drawing rather than a fixed catalog size.",
+      "ar": ""
+    },
+    "range-row-2-span-1": {
+      "en": "Valves",
+      "ar": ""
+    },
+    "range-row-2-span-2": {
+      "en": "Directional and pressure-control valve bodies, machined and seated in-house.",
+      "ar": ""
+    },
+    "range-row-3-span-1": {
+      "en": "Couplings",
+      "ar": ""
+    },
+    "range-row-3-span-2": {
+      "en": "Quick-release and threaded couplings for hydraulic lines under pressure.",
+      "ar": ""
+    },
+    "range-row-4-span-1": {
+      "en": "Seals & fittings",
+      "ar": ""
+    },
+    "range-row-4-span-2": {
+      "en": "The parts between the parts — supplied to match, not left for the buyer to source separately.",
+      "ar": ""
+    },
+    "kicker-export": {
+      "en": "Export",
+      "ar": ""
+    },
+    "heading-export": {
+      "en": "Built for a buyer reading Arabic, not translated for one.",
+      "ar": ""
+    },
+    "export-point-1-strong-1": {
+      "en": "One point of contact, in English and Arabic",
+      "ar": ""
+    },
+    "export-point-1-span-2": {
+      "en": "A drawing sent in Arabic gets read in Arabic, not routed through a translator first.",
+      "ar": ""
+    },
+    "export-point-2-strong-1": {
+      "en": "Quoted per drawing",
+      "ar": ""
+    },
+    "export-point-2-span-2": {
+      "en": "No catalog price list. Every quote is scoped to the drawing and the run size.",
+      "ar": ""
+    },
+    "export-point-3-strong-1": {
+      "en": "Packed for the voyage",
+      "ar": ""
+    },
+    "export-point-3-span-2": {
+      "en": "Crated and documented for sea freight to a Gulf port from the first run, not adapted after.",
+      "ar": ""
+    },
+    "kicker-contact": {
+      "en": "Contact",
+      "ar": ""
+    },
+    "heading-contact": {
+      "en": "Send the drawing.",
+      "ar": ""
+    },
+    "lead-contact": {
+      "en": "matches EN contact lead",
+      "ar": ""
+    },
+    "contact-card-p-2": {
+      "en": "Quotes are scoped per drawing. No catalog pricing.",
+      "ar": ""
+    }
+  }
+}
