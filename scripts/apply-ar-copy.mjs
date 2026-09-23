@@ -33,7 +33,9 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dry = process.argv.includes('--dry');
 const SOURCES = ['src/pages/ar/index.astro', 'src/components/Header.astro'];
 
-const { strings } = JSON.parse(readFileSync(join(root, 'docs', 'ar-copy.json'), 'utf8'));
+const copy = JSON.parse(readFileSync(join(root, 'docs', 'ar-copy.json'), 'utf8'));
+const { strings } = copy;
+const isDraft = String(copy._STATUS ?? '').toUpperCase() !== 'APPROVED';
 
 const filled = Object.entries(strings).filter(([, v]) => v.ar && v.ar.trim());
 const empty = Object.entries(strings).filter(([, v]) => !v.ar || !v.ar.trim());
@@ -67,7 +69,10 @@ if (faults.length) {
 }
 
 /* ---- the same pairing the worksheet used --------------------------------- */
-const PH = /ph\((['"])\[pending\]\s*([\s\S]*?)\1\)/;
+// Any string literal opening with [pending] — inside ph(), or a bare label in
+// a data array like the header's nav.
+const PH = /(['"])\[pending\]\s*([\s\S]*?)\1/;
+const NAV_KEY = /\bkey:\s*['"]([\w-]+)['"]/;
 const NAME = /transition:name="([^"]+)"/;
 const PLAIN = /<(?:h[1-6]|p|span|strong|a|li)[^>]*>([^<{}]+)</;
 const esc = (s) => s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
@@ -103,11 +108,12 @@ for (const rel of SOURCES) {
       return line;
     }
 
-    const tag = /<([a-zA-Z][\w-]*)/.exec(line.slice(0, line.indexOf('ph(')))?.[1] ?? 'span';
+    const navKey = NAV_KEY.exec(line)?.[1];
+    const tag = /<([a-zA-Z][\w-]*)/.exec(line.slice(0, Math.max(0, line.indexOf('[pending]'))))?.[1] ?? (navKey ? 'nav' : 'span');
     const idx = name ? null : n;
     if (!name) n += 1;
 
-    let key = name ?? `${scope}-${tag}${idx === null ? '' : `-${idx + 1}`}`;
+    let key = navKey ? `nav-${navKey}` : (name ?? `${scope}-${tag}${idx === null ? '' : `-${idx + 1}`}`);
     if (seen.has(key)) {
       const c = seen.get(key) + 1;
       seen.set(key, c);
@@ -126,14 +132,36 @@ for (const rel of SOURCES) {
     return line.replace(PH, `'${esc(value)}'`).replace(/\s+lang="en"/, '');
   });
 
-  if (!dry) writeFileSync(path, out.join(eol));
+  let text = out.join(eol);
+
+  // The marker is the only thing standing between draft Arabic and a deploy
+  // that silently disproves this site's whole argument. It goes in as an HTML
+  // comment at the top of the file — visible in source, greppable, and removed
+  // the moment _STATUS flips to APPROVED.
+  const MARK = '<!-- AR COPY STATUS: DRAFT — machine-written, not approved, must not deploy. See docs/ar-copy.json _STATUS_NOTE. -->';
+  text = text.replace(new RegExp(`^\\s*<!-- AR COPY STATUS[^>]*-->\\r?\\n`, 'm'), '');
+  if (isDraft && rel.endsWith('ar/index.astro')) text = `${MARK}${eol}${text}`;
+
+  if (!dry) writeFileSync(path, text);
 }
 
 console.log(`${written} strings ${dry ? 'would be' : ''} written`);
 
-const missed = filled.filter(([k]) => !applied.has(k)).map(([k]) => k);
+/* A key with no placeholder left is usually a key that was written on an
+   earlier run — the placeholder is gone precisely because it worked. Only a key
+   that is neither written now nor already present in the file is a real miss. */
+const current = SOURCES.map((rel) => {
+  try {
+    return readFileSync(join(root, rel), 'utf8');
+  } catch {
+    return '';
+  }
+}).join('\n');
+const alreadyThere = filled.filter(([k, v]) => !applied.has(k) && current.includes(v.ar)).map(([k]) => k);
+const missed = filled.filter(([k, v]) => !applied.has(k) && !current.includes(v.ar)).map(([k]) => k);
+if (alreadyThere.length) console.log(`${alreadyThere.length} already in place from an earlier run`);
 if (missed.length) {
-  console.error(`these keys had Arabic but no matching placeholder — the page may have moved: ${missed.join(', ')}`);
+  console.error(`these keys had Arabic but no placeholder and no match in the page — it may have moved: ${missed.join(', ')}`);
   process.exit(1);
 }
 if (dry) process.exit(0);
@@ -155,3 +183,9 @@ if (mismatched.length) {
 const leftoverLang = (after.match(/lang="en"/g) || []).length;
 console.log(`verified: ${filled.length} strings byte-for-byte, 0 bad codepoints, ${leftoverLang} lang="en" left`);
 console.log('now build and look at /ar/ in a real browser at 1440 and 390 — RTL flow, joining, no tofu, no overflow.');
+if (isDraft) {
+  console.log('');
+  console.log('  ** THIS IS DRAFT COPY. _STATUS is not APPROVED. **');
+  console.log('  The AR page carries a draft marker and scripts/check-copy-status.mjs will');
+  console.log('  fail until a person has written the real Arabic and set _STATUS to APPROVED.');
+}

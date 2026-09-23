@@ -1,3 +1,4 @@
+<!-- AR COPY STATUS: DRAFT — machine-written, not approved, must not deploy. See docs/ar-copy.json _STATUS_NOTE. -->
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
@@ -29,25 +30,25 @@ const ph = (en: string) => en;
 
   <main>
     <section class="hero container pending">
-      <p class="hero__eyebrow" lang="en" transition:name="hero-eyebrow">{ph('[pending] Hydraulic components, Turkey to the Gulf')}</p>
-      <h1 lang="en" transition:name="hero-heading">{ph("[pending] Parts that hold the tolerance, in the language your buyer reads.")}</h1>
-      <p class="hero__sub" lang="en" transition:name="hero-sub">
-        {ph('[pending] Full Arabic hero copy from Sam — see EN /index.astro for the matching content.')}
+      <p class="hero__eyebrow" transition:name="hero-eyebrow">{'مكوّنات هيدروليكية، من تركيا إلى الخليج'}</p>
+      <h1 transition:name="hero-heading">{'قطع تُنفَّذ ضمن التفاوت المطلوب، وبلغة يقرؤها مشتريك.'}</h1>
+      <p class="hero__sub" transition:name="hero-sub">
+        {'تُصنّع ميرا الأسطوانات والصمامات والوصلات الهيدروليكية لمصنّعي المعدات في أنحاء الخليج. رسم يدخل، وقطعة مختبَرة تخرج — وموقع يقرؤه المشتري العربي بالعربية، لا كترجمة عن الإنجليزية.'}
       </p>
       <div class="hero__actions">
-        <a class="button button--primary" href="#contact" lang="en" transition:name="hero-cta-primary">{ph('[pending] Send a drawing')}</a>
-        <a class="button button--ghost" href="#capabilities" lang="en" transition:name="hero-cta-ghost">{ph('[pending] See the floor')}</a>
+        <a class="button button--primary" href="#contact" transition:name="hero-cta-primary">{'أرسل الرسم'}</a>
+        <a class="button button--ghost" href="#capabilities" transition:name="hero-cta-ghost">{'شاهد الورشة'}</a>
       </div>
     </section>
 
     <section class="section container pending">
       <div class="section__head">
         <div>
-          <p class="section__kicker" lang="en" transition:name="kicker-shop">{ph('[pending] The shop')}</p>
-          <h2 lang="en" transition:name="heading-shop">{ph('[pending] A machining floor, not a sales office.')}</h2>
+          <p class="section__kicker" transition:name="kicker-shop">{'الورشة'}</p>
+          <h2 transition:name="heading-shop">{'ورشة تصنيع، لا مكتب مبيعات.'}</h2>
         </div>
       </div>
-      <p class="section__lead" lang="en" transition:name="lead-shop">{ph('[pending] Matches EN "who we are" paragraph.')}</p>
+      <p class="section__lead" transition:name="lead-shop">{'تُدير ميرا خراطة وتفريزًا بالتحكم الرقمي لمكوّنات هيدروليكية: أسطوانات وصمامات ووصلات وما بينها من تجهيزات. تصل الرسومات مطبوعة أو بصيغة DWG، وتخرج القطع معبّأة للحاوية، لا لرفٍّ قريب.'}</p>
     </section>
 
     <ExplodedCoupling />
@@ -55,30 +56,30 @@ const ph = (en: string) => en;
     <section id="capabilities" class="section container pending">
       <div class="section__head">
         <div>
-          <p class="section__kicker" lang="en" transition:name="kicker-capabilities">{ph('[pending] Capabilities')}</p>
-          <h2 lang="en" transition:name="heading-capabilities">{ph("[pending] What happens to a drawing once it's yours.")}</h2>
+          <p class="section__kicker" transition:name="kicker-capabilities">{'الإمكانات'}</p>
+          <h2 transition:name="heading-capabilities">{'ما الذي يحدث للرسم بعد أن يصل إلينا.'}</h2>
         </div>
       </div>
       <div class="grid grid--4">
         <div class="card" transition:name="card-1">
           <p class="card__index">01</p>
-          <h3 lang="en">{ph('[pending] CNC turning & milling')}</h3>
-          <p lang="en">{ph('[pending] matches EN card 1')}</p>
+          <h3>{'خراطة وتفريز بالتحكم الرقمي'}</h3>
+          <p>{'قضبان وكتل خام تُقطَع وفق الرسم على مكائن متعددة المحاور — قطعة واحدة أو دفعات متكرّرة، على الورشة نفسها.'}</p>
         </div>
         <div class="card" transition:name="card-2">
           <p class="card__index">02</p>
-          <h3 lang="en">{ph('[pending] Assembly')}</h3>
-          <p lang="en">{ph('[pending] matches EN card 2')}</p>
+          <h3>{'التجميع'}</h3>
+          <p>{'تُبنى الأسطوانات وأجسام الصمامات وتُركَّب لدينا، لا تُسنَد إلى الباطن ثم يُعاد تجميعها على الثقة.'}</p>
         </div>
         <div class="card" transition:name="card-3">
           <p class="card__index">03</p>
-          <h3 lang="en">{ph('[pending] Pressure testing')}</h3>
-          <p lang="en">{ph('[pending] matches EN card 3')}</p>
+          <h3>{'اختبار الضغط'}</h3>
+          <p>{'تُختبر كل مجموعة هيدروليكية قبل تعبئتها، لا بالعيّنة بعد شحن الدفعة.'}</p>
         </div>
         <div class="card" transition:name="card-4">
           <p class="card__index">04</p>
-          <h3 lang="en">{ph('[pending] Export packing')}</h3>
-          <p lang="en">{ph('[pending] matches EN card 4')}</p>
+          <h3>{'تعبئة التصدير'}</h3>
+          <p>{'تُصندَق للشحن البحري إلى ميناء خليجي، لا تُكيَّف لاحقًا عن تعبئة محلية.'}</p>
         </div>
       </div>
     </section>
@@ -86,26 +87,26 @@ const ph = (en: string) => en;
     <section id="range" class="section container pending">
       <div class="section__head">
         <div>
-          <p class="section__kicker" lang="en" transition:name="kicker-range">{ph('[pending] Range')}</p>
-          <h2 lang="en" transition:name="heading-range">{ph('[pending] Four families, one floor.')}</h2>
+          <p class="section__kicker" transition:name="kicker-range">{'المجموعة'}</p>
+          <h2 transition:name="heading-range">{'أربع عائلات، ورشة واحدة.'}</h2>
         </div>
       </div>
       <ul class="range-list">
         <li class="range-list__row" transition:name="range-row-1">
-          <span class="range-list__name" lang="en">{ph('[pending] Cylinders')}</span>
-          <span class="range-list__desc" lang="en">{ph('[pending] matches EN row 1')}</span>
+          <span class="range-list__name">{'أسطوانات'}</span>
+          <span class="range-list__desc">{'أحادية وثنائية الفعل، تُصنع وفق رسم العميل لا وفق مقاس كتالوج ثابت.'}</span>
         </li>
         <li class="range-list__row" transition:name="range-row-2">
-          <span class="range-list__name" lang="en">{ph('[pending] Valves')}</span>
-          <span class="range-list__desc" lang="en">{ph('[pending] matches EN row 2')}</span>
+          <span class="range-list__name">{'صمامات'}</span>
+          <span class="range-list__desc">{'أجسام صمامات اتجاهية وللتحكم في الضغط، تُخرَّط وتُركَّب لدينا.'}</span>
         </li>
         <li class="range-list__row" transition:name="range-row-3">
-          <span class="range-list__name" lang="en">{ph('[pending] Couplings')}</span>
-          <span class="range-list__desc" lang="en">{ph('[pending] matches EN row 3')}</span>
+          <span class="range-list__name">{'وصلات'}</span>
+          <span class="range-list__desc">{'وصلات سريعة الفصل وأخرى لولبية لخطوط هيدروليكية تحت الضغط.'}</span>
         </li>
         <li class="range-list__row" transition:name="range-row-4">
-          <span class="range-list__name" lang="en">{ph('[pending] Seals & fittings')}</span>
-          <span class="range-list__desc" lang="en">{ph('[pending] matches EN row 4')}</span>
+          <span class="range-list__name">{'موانع تسرّب وتجهيزات'}</span>
+          <span class="range-list__desc">{'القطع التي بين القطع — تُورَّد مطابقة، لا تُترك للمشتري ليؤمّنها بنفسه.'}</span>
         </li>
       </ul>
     </section>
@@ -113,34 +114,34 @@ const ph = (en: string) => en;
     <section id="export" class="section container pending">
       <div class="section__head">
         <div>
-          <p class="section__kicker" lang="en" transition:name="kicker-export">{ph('[pending] Export')}</p>
-          <h2 lang="en" transition:name="heading-export">{ph('[pending] Built for a buyer reading Arabic, not translated for one.')}</h2>
+          <p class="section__kicker" transition:name="kicker-export">{'التصدير'}</p>
+          <h2 transition:name="heading-export">{'مبني لمشترٍ يقرأ العربية، لا مترجَم له.'}</h2>
         </div>
       </div>
       <ul class="export-points">
         <li transition:name="export-point-1">
-          <strong lang="en">{ph('[pending] One point of contact, in English and Arabic')}</strong>
-          <span lang="en">{ph('[pending] matches EN point 1')}</span>
+          <strong>{'جهة تواصل واحدة، بالعربية والإنجليزية'}</strong>
+          <span>{'الرسم الذي يصل بالعربية يُقرأ بالعربية، لا يُمرَّر على مترجم أولًا.'}</span>
         </li>
         <li transition:name="export-point-2">
-          <strong lang="en">{ph('[pending] Quoted per drawing')}</strong>
-          <span lang="en">{ph('[pending] matches EN point 2')}</span>
+          <strong>{'تسعير لكل رسم'}</strong>
+          <span>{'لا قائمة أسعار كتالوجية. كل عرض سعر يُحدَّد وفق الرسم وحجم الدفعة.'}</span>
         </li>
         <li transition:name="export-point-3">
-          <strong lang="en">{ph('[pending] Packed for the voyage')}</strong>
-          <span lang="en">{ph('[pending] matches EN point 3')}</span>
+          <strong>{'معبّأة للرحلة'}</strong>
+          <span>{'تُصندَق وتُوثَّق للشحن البحري إلى ميناء خليجي من أول دفعة، لا تُكيَّف لاحقًا.'}</span>
         </li>
       </ul>
     </section>
 
     <section id="contact" class="section contact pending">
       <div class="container">
-        <p class="section__kicker" lang="en" transition:name="kicker-contact">{ph('[pending] Contact')}</p>
-        <h2 lang="en" transition:name="heading-contact">{ph('[pending] Send the drawing.')}</h2>
-        <p class="section__lead" lang="en" transition:name="lead-contact">{ph('[pending] matches EN contact lead')}</p>
+        <p class="section__kicker" transition:name="kicker-contact">{'تواصل'}</p>
+        <h2 transition:name="heading-contact">{'أرسل الرسم.'}</h2>
+        <p class="section__lead" transition:name="lead-contact">{'رسم مطبوع، أو ملف DWG، أو قطعة لقياسها عكسيًا — يكفي ذلك لبدء عرض السعر.'}</p>
         <div class="contact-card" transition:name="contact-card">
           <span>hello@mera.works</span>
-          <p class="contact-card__note" lang="en">{ph('[pending] matches EN contact note')}</p>
+          <p class="contact-card__note">{'تُحدَّد عروض الأسعار وفق كل رسم. لا تسعير كتالوجي.'}</p>
         </div>
       </div>
     </section>

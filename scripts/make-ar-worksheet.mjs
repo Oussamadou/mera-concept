@@ -39,7 +39,10 @@ import { dirname, join } from 'node:path';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCES = ['src/pages/ar/index.astro', 'src/components/Header.astro'];
 
-const PH = /ph\((['"])\[pending\]\s*([\s\S]*?)\1\)/;
+// Any string literal opening with [pending] — inside ph(), or a bare label in
+// a data array like the header's nav.
+const PH = /(['"])\[pending\]\s*([\s\S]*?)\1/;
+const NAV_KEY = /\bkey:\s*['"]([\w-]+)['"]/;
 const NAME = /transition:name="([^"]+)"/;
 const PLAIN = /<(?:h[1-6]|p|span|strong|a|li)[^>]*>([^<{}]+)</;
 const isPointer = (t) => /\b(matches EN|see EN|from Sam|matching content)\b/i.test(t);
@@ -98,7 +101,8 @@ for (const rel of SOURCES) {
       return;
     }
 
-    const tag = /<([a-zA-Z][\w-]*)/.exec(line.slice(0, line.indexOf('ph(')))?.[1] ?? 'span';
+    const navKey = NAV_KEY.exec(line)?.[1];
+    const tag = /<([a-zA-Z][\w-]*)/.exec(line.slice(0, Math.max(0, line.indexOf('[pending]'))))?.[1] ?? (navKey ? 'nav' : 'span');
     const cls = /class="([^"]+)"/.exec(line)?.[1];
     const idx = name ? null : n;
     if (!name) n += 1;
@@ -109,7 +113,7 @@ for (const rel of SOURCES) {
       if (found) en = found;
     }
 
-    let key = name ?? `${scope}-${tag}${idx === null ? '' : `-${idx + 1}`}`;
+    let key = navKey ? `nav-${navKey}` : (name ?? `${scope}-${tag}${idx === null ? '' : `-${idx + 1}`}`);
     if (seen.has(key)) {
       const c = seen.get(key) + 1;
       seen.set(key, c);
@@ -122,7 +126,12 @@ for (const rel of SOURCES) {
   });
 }
 
-if (!rows.length) throw new Error('no [pending] strings found — has the AR copy already landed?');
+if (!rows.length) {
+  // The success state, not a fault: every string has been written, so there is
+  // nothing left to put on a worksheet. Leave the existing files untouched.
+  console.log('no [pending] strings left — the AR copy has landed. docs/ left as it is.');
+  process.exit(0);
+}
 
 /* ---- the readable worksheet ---------------------------------------------- */
 const md = [
@@ -166,18 +175,41 @@ mkdirSync(join(root, 'docs'), { recursive: true });
 writeFileSync(join(root, 'docs', 'translation-worksheet.md'), md.replace(/\n/g, '\r\n'));
 
 /* ---- the file the writer fills ------------------------------------------- */
+/* MERGE, never overwrite. After the first apply the page holds Arabic instead
+   of placeholders, so a fresh scan finds almost nothing — and a plain write
+   would wipe every string already written. Existing Arabic and _STATUS survive,
+   new keys arrive empty, and a key whose placeholder has gone is kept, because
+   its absence means it was filled in, not that it stopped existing. */
+const target = join(root, 'docs', 'ar-copy.json');
+let existing = { strings: {} };
+try {
+  existing = JSON.parse(readFileSync(target, 'utf8'));
+} catch {
+  /* first run */
+}
+
+const merged = { ...existing.strings };
+for (const r of rows) {
+  merged[r.key] = { en: r.en, ar: existing.strings?.[r.key]?.ar ?? '' };
+}
+
 writeFileSync(
-  join(root, 'docs', 'ar-copy.json'),
+  target,
   `${JSON.stringify(
     {
       _README:
-        'Arabic for mera-concept. Fill every "ar" value. Written by a person — see docs/translation-worksheet.md. Keys must not change.',
-      strings: Object.fromEntries(rows.map((r) => [r.key, { en: r.en, ar: '' }])),
+        existing._README ??
+        'Arabic for mera-concept. Fill every "ar" value. See docs/translation-worksheet.md. Keys must not change.',
+      ...(existing._STATUS ? { _STATUS: existing._STATUS } : {}),
+      ...(existing._STATUS_NOTE ? { _STATUS_NOTE: existing._STATUS_NOTE } : {}),
+      strings: merged,
     },
     null,
     2,
   )}\n`,
 );
+const kept = Object.keys(merged).length - rows.length;
+if (kept > 0) console.log(`  ${kept} key(s) kept from the existing file (already filled in)`);
 
 const thin = rows.filter((r) => r.thin);
 console.log(`${rows.length} strings -> docs/translation-worksheet.md and docs/ar-copy.json`);
