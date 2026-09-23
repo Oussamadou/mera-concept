@@ -4,6 +4,12 @@
   --color-steel-soft: #5c6675;
   --color-brass: #b8874a;
   --color-brass-bright: #d3a361;
+  /* --color-brass measures 2.87:1 on paper/white — fails WCAG AA for text
+     (needs 4.5:1) and even the looser 3:1 non-text threshold. Use this for
+     any brass TEXT or brass non-text indicator (focus ring, rule) on a
+     light ground; --color-brass stays for brass on the dark contact
+     section (5.61:1 there) and for decoration where no threshold applies. */
+  --color-brass-ink: #8a6432;
   --color-paper: #f5f3ee;
   --color-paper-dim: #ebe8e1;
   --color-white: #ffffff;
@@ -104,7 +110,7 @@ p {
 }
 
 .site-header__mark span {
-  color: var(--color-brass);
+  color: var(--color-brass-ink);
 }
 
 .site-header__nav {
@@ -144,7 +150,7 @@ p {
 }
 
 .site-header__lang [aria-current='page'] {
-  color: var(--color-brass);
+  color: var(--color-brass-ink);
   font-weight: 600;
 }
 
@@ -160,7 +166,7 @@ p {
   font-size: 0.8rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-brass);
+  color: var(--color-brass-ink);
   margin-block-end: var(--space-2);
 }
 
@@ -205,6 +211,9 @@ p {
 .button--primary:focus-visible {
   background: var(--color-brass);
   border-color: var(--color-brass);
+  /* brass background, so ink text (5.61:1) rather than the inherited
+     near-white (2.87:1). */
+  color: var(--color-ink);
 }
 
 .button--ghost {
@@ -215,7 +224,7 @@ p {
 .button--ghost:hover,
 .button--ghost:focus-visible {
   border-color: var(--color-brass);
-  color: var(--color-brass);
+  color: var(--color-brass-ink);
 }
 
 /* ---- section shell ---- */
@@ -242,7 +251,7 @@ p {
   font-size: 0.8rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-brass);
+  color: var(--color-brass-ink);
 }
 
 .section h2 {
@@ -284,7 +293,7 @@ p {
 .card__index {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.8rem;
-  color: var(--color-brass);
+  color: var(--color-brass-ink);
   margin-block-end: var(--space-1);
 }
 
@@ -340,12 +349,12 @@ p {
 
 .export-points li {
   padding-inline-start: var(--space-3);
-  border-inline-start: 2px solid var(--color-brass);
+  border-inline-start: 2px solid var(--color-brass-ink);
 }
 
 [dir='rtl'] .export-points li {
   padding-inline-start: var(--space-3);
-  border-inline-start: 2px solid var(--color-brass);
+  border-inline-start: 2px solid var(--color-brass-ink);
 }
 
 .export-points strong {
@@ -371,6 +380,13 @@ p {
 
 .contact .section__lead {
   color: var(--color-paper-dim);
+}
+
+.contact .section__kicker {
+  /* brass-ink (the light-ground default) is only 3.36:1 on this dark
+     section — the bright brass is 5.61:1 here, so the dark section keeps
+     the original token rather than the light-ground override. */
+  color: var(--color-brass);
 }
 
 .contact-card {
@@ -412,12 +428,15 @@ p {
 }
 
 .pending {
-  outline: 2px dashed var(--color-brass);
+  outline: 2px dashed var(--color-brass-ink);
   outline-offset: 4px;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-brass);
+  /* brass-ink clears the 3:1 non-text threshold against paper (4.79:1),
+     white (5.32:1) AND the dark contact section (3.36:1) — the one brass
+     variant that works as a focus ring everywhere it can appear. */
+  outline: 2px solid var(--color-brass-ink);
   outline-offset: 2px;
 }
 
