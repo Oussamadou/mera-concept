@@ -4,36 +4,39 @@ interface Props {
 }
 const { lang } = Astro.props;
 
+// `key` is the transition:name anchor — stable across locales so the browser
+// morphs each item's own position between the LTR and mirrored RTL layout
+// rather than cross-fading unrelated elements (the whole point of §6.1).
 const nav = {
   en: [
-    { href: '#capabilities', label: 'Capabilities' },
-    { href: '#range', label: 'Range' },
-    { href: '#export', label: 'Export' },
-    { href: '#contact', label: 'Contact' },
+    { key: 'capabilities', href: '#capabilities', label: 'Capabilities' },
+    { key: 'range', href: '#range', label: 'Range' },
+    { key: 'export', href: '#export', label: 'Export' },
+    { key: 'contact', href: '#contact', label: 'Contact' },
   ],
   // PENDING: real Arabic nav labels come from Sam, file-to-file (see
   // src/pages/ar/index.astro's header comment) — never authored here.
   ar: [
-    { href: '#capabilities', label: '[pending] Capabilities' },
-    { href: '#range', label: '[pending] Range' },
-    { href: '#export', label: '[pending] Export' },
-    { href: '#contact', label: '[pending] Contact' },
+    { key: 'capabilities', href: '#capabilities', label: '[pending] Capabilities' },
+    { key: 'range', href: '#range', label: '[pending] Range' },
+    { key: 'export', href: '#export', label: '[pending] Export' },
+    { key: 'contact', href: '#contact', label: '[pending] Contact' },
   ],
 };
 ---
 <header class="site-header">
   <div class="container site-header__row">
-    <a class="site-header__mark" href={lang === 'ar' ? '/ar/' : '/'}>
+    <a class="site-header__mark" href={lang === 'ar' ? '/ar/' : '/'} transition:name="mark">
       Mera<span>.</span>
     </a>
     <ul class="site-header__nav">
       {nav[lang].map((item) => (
-        <li><a href={item.href} lang={lang === 'ar' ? 'en' : undefined}>{item.label}</a></li>
+        <li transition:name={`nav-${item.key}`}><a href={item.href} lang={lang === 'ar' ? 'en' : undefined}>{item.label}</a></li>
       ))}
     </ul>
     <nav class="site-header__lang" aria-label="Language">
-      <a href="/" aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
-      <a href="/ar/" aria-current={lang === 'ar' ? 'page' : undefined}>AR</a>
+      <a href="/" aria-current={lang === 'en' ? 'page' : undefined} transition:name="lang-en">EN</a>
+      <a href="/ar/" aria-current={lang === 'ar' ? 'page' : undefined} transition:name="lang-ar">AR</a>
     </nav>
   </div>
 </header>

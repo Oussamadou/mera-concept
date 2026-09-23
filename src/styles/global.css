@@ -420,3 +420,32 @@ p {
   outline: 2px solid var(--color-brass);
   outline-offset: 2px;
 }
+
+/* ---- language-switch transition (work-artefacts-plan.md §6.1) -----------
+   Every `transition:name`-tagged element carries the same name on both
+   src/pages/index.astro and src/pages/ar/index.astro, so the browser's
+   default view-transition behaviour already interpolates each element's own
+   geometry between the LTR and mirrored-RTL layout — the nav crossing, the
+   columns swapping. This block only re-times that default (which is a fast
+   0.25s cross-fade) into something that reads as a deliberate choreography,
+   and makes the swap instant for anyone who asked for less motion: an
+   un-timed override here would still animate, just slower, which is not
+   what "instant swap" means. */
+::view-transition-group(*) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
