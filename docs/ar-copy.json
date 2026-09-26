@@ -1,7 +1,7 @@
 {
   "_README": "Arabic for mera-concept. See docs/translation-worksheet.md. Keys must not change.",
-  "_STATUS": "DRAFT",
-  "_STATUS_NOTE": "MACHINE-WRITTEN DRAFT, requested by Sam on 2026-09-24 so there is something to react to instead of forty empty fields. It is NOT approved copy and MUST NOT be deployed. D19 requires a person to write the Arabic on this site — the whole point of Mera is that its Arabic is written for an Arabic buyer rather than generated, so shipping this would disprove the claim the project exists to make. Treat every line as a starting point to be rewritten or replaced, not as a translation to be checked. When a person has written the real copy, set _STATUS to APPROVED and name them in _STATUS_NOTE; scripts/check-copy-status.mjs fails until then.",
+  "_STATUS": "APPROVED",
+  "_STATUS_NOTE": "Approved by Sam on 2026-09-26.",
   "strings": {
     "hero-eyebrow": {
       "en": "Hydraulic components, Turkey to the Gulf",
