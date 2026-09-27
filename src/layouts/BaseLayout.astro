@@ -56,5 +56,66 @@ import { ClientRouter } from 'astro:transitions';
   </head>
   <body>
     <slot />
-  </body>
+  
+  <script>
+    import Lenis from 'lenis';
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0, 0);
+  </script>
+
+  <script>
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    
+    // Use transition lifecycle events since we use Astro ClientRouter
+    document.addEventListener('astro:page-load', () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const cards = gsap.utils.toArray('.card');
+      if (cards.length) {
+        gsap.from(cards, {
+          scrollTrigger: {
+            trigger: '.grid--4',
+            start: 'top 85%',
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power3.out'
+        });
+      }
+
+      const rows = gsap.utils.toArray('.range-list__row');
+      if (rows.length) {
+        gsap.from(rows, {
+          scrollTrigger: {
+            trigger: '.range-list',
+            start: 'top 85%',
+          },
+          x: -20,
+          opacity: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'power2.out'
+        });
+      }
+    });
+  </script>
+</body>
 </html>
